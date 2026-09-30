@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="400dp"
+    android:height="180dp"
+    android:viewportWidth="400"
+    android:viewportHeight="180">
+    <!-- Background gradient -->
+    <path
+        android:fillColor="#006D5B"
+        android:pathData="M0,0H400V180H0Z" />
+    <!-- Decorative medical cross pattern -->
+    <path
+        android:fillColor="#007B83"
+        android:pathData="M180,70V110M160,90H200"
+        android:strokeWidth="4"
+        android:strokeColor="#004D3D"
+        android:strokeLineCap="round" />
+    <path
+        android:fillColor="#007B83"
+        android:pathData="M320,70V110M300,90H340"
+        android:strokeWidth="3"
+        android:strokeColor="#004D3D"
+        android:strokeLineCap="round" />
+    <path
+        android:fillColor="#007B83"
+        android:pathData="M80,130V170M60,150H100"
+        android:strokeWidth="3"
+        android:strokeColor="#004D3D"
+        android:strokeLineCap="round" />
+    <!-- Pulse line -->
+    <path
+        android:fillColor="#E8F5F0"
+        android:pathData="M20,150 Q60,80 120,150 T220,150 T320,150 T400,150"
+        android:strokeWidth="2"
+        android:strokeColor="#004D3D"
+        android:strokeLineCap="round" />
+</vector>

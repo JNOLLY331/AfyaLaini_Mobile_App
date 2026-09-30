@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AfyaQueue - Live Queue Status</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        :root {
+            --brand-green: #1E7A46;
+            --brand-rust: #C1541A;
+            --brand-navy: #16264A;
+            --brand-bg: #FAFAF8;
+            --brand-surface: #FFFFFF;
+            --brand-text: #1B2333;
+            --brand-text-muted: #55607A;
+        }
+        body { background: var(--brand-bg); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; text-align: center; }
+        
+        .card { background: var(--brand-surface); border-radius: 20px; padding: 40px 32px; max-width: 400px; width: 100%; box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+        
+        .label { color: var(--brand-text-muted); font-size: 14px; font-weight: 500; margin-bottom: 8px; }
+        .queue-number { font-size: 72px; font-weight: 800; color: var(--brand-navy); line-height: 1; margin-bottom: 24px; font-family: 'SF Mono', Monaco, monospace; }
+        
+        .status-row { display: flex; justify-content: center; gap: 32px; margin-bottom: 24px; padding: 0 16px; }
+        .status-item { text-align: center; }
+        .status-value { font-size: 28px; font-weight: 700; color: var(--brand-navy); line-height: 1; }
+        .status-value.serving { color: var(--brand-green); }
+        .status-label { font-size: 12px; color: var(--brand-text-muted); margin-top: 4px; }
+        
+        .eta { color: var(--brand-text-muted); font-size: 14px; margin-bottom: 24px; }
+        
+        .your-turn { display: none; background: #FFF4F0; border: 1px solid var(--brand-rust); color: var(--brand-rust); padding: 16px; border-radius: 12px; font-weight: 600; animation: pulse 2s infinite; }
+        .your-turn.visible { display: block; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        
+        .doctor-info { margin-top: 24px; padding-top: 24px; border-top: 1px solid #E8ECEF; color: var(--brand-text-muted); font-size: 13px; }
+        .doctor-info strong { color: var(--brand-navy); }
+        
+        .live-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--brand-green); color: white; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 20px; }
+        .live-dot { width: 8px; height: 8px; background: white; border-radius: 50%; animation: blink 1.5s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="live-badge">
+            <span class="live-dot"></span> Live
+        </div>
+        
+        <div class="label">Your number</div>
+        <div class="queue-number" id="myNumber">7</div>
+        
+        <div class="status-row">
+            <div class="status-item">
+                <div class="status-value serving" id="nowServing">3</div>
+                <div class="status-label">Now serving</div>
+            </div>
+            <div class="status-item">
+                <div class="status-value" id="ahead">3</div>
+                <div class="status-label">Ahead of you</div>
+            </div>
+        </div>
+        
+        <div class="eta" id="eta">≈ 15 minutes</div>
+        
+        <div class="your-turn" id="yourTurn">It's your turn — please proceed to the doctor's office</div>
+        
+        <div class="doctor-info">
+            <strong>Dr. Sarah Otieno</strong> • General Practice<br>
+            2026-09-30 • 09:30
+        </div>
+    </div>
+
+    <script>
+        // Simulate real-time updates
+        let myNumber = 7;
+        let nowServing = 3;
+        let interval;
+        
+        function updateUI() {
+            const ahead = Math.max(0, myNumber - nowServing - 1);
+            document.getElementById('nowServing').textContent = nowServing;
+            document.getElementById('ahead').textContent = ahead;
+            document.getElementById('eta').textContent = `≈ ${ahead * 5} minutes`;
+            
+            const yourTurn = document.getElementById('yourTurn');
+            if (myNumber <= nowServing) {
+                yourTurn.classList.add('visible');
+            } else {
+                yourTurn.classList.remove('visible');
+            }
+        }
+        
+        // Simulate staff calling next patient every 5 seconds
+        interval = setInterval(() => {
+            nowServing++;
+            updateUI();
+            if (nowServing > myNumber) clearInterval(interval);
+        }, 5000);
+        
+        updateUI();
+        
+        // Manual controls for demo
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'n') { nowServing++; updateUI(); }
+            if (e.key === 'r') { nowServing = 3; updateUI(); }
+        });
+        
+        console.log("Press 'n' to call next patient, 'r' to reset");
+    </script>
+</body>
+</html>

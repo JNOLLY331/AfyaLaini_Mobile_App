@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AfyaQueue - Doctor Detail / Book</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        :root {
+            --brand-green: #1E7A46;
+            --brand-rust: #C1541A;
+            --brand-navy: #16264A;
+            --brand-bg: #FAFAF8;
+            --brand-surface: #FFFFFF;
+            --brand-text: #1B2333;
+            --brand-text-muted: #55607A;
+        }
+        body { background: var(--brand-bg); min-height: 100vh; }
+        .header { background: var(--brand-surface); padding: 20px 16px; border-bottom: 1px solid #E8ECEF; }
+        .doctor-name { font-size: 20px; font-weight: 700; color: var(--brand-navy); }
+        .doctor-specialty { color: var(--brand-text-muted); margin-top: 4px; }
+        
+        .content { padding: 20px 16px; max-width: 480px; margin: 0 auto; }
+        .section-title { font-size: 16px; font-weight: 700; color: var(--brand-navy); margin-bottom: 12px; }
+        
+        .date-field { background: var(--brand-surface); border-radius: 12px; padding: 16px; margin-bottom: 20px; border: 1px solid #E0E4E8; }
+        .date-input { width: 100%; padding: 12px 16px 12px 48px; border: none; background: transparent; font-size: 16px; color: var(--brand-text); }
+        .date-input:focus { outline: none; }
+        
+        .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+        .slot-chip { padding: 10px 16px; border-radius: 10px; border: 1px solid #E0E4E8; background: var(--brand-surface); font-size: 14px; color: var(--brand-text); cursor: pointer; transition: all 0.2s; }
+        .slot-chip:hover { border-color: var(--brand-rust); background: #FFF4F0; }
+        .slot-chip.selected { border-color: var(--brand-rust); background: var(--brand-rust); color: white; }
+        
+        .btn-confirm { width: 100%; padding: 16px; background: var(--brand-rust); color: white; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; margin-top: 28px; cursor: pointer; position: fixed; bottom: 0; left: 0; right: 0; max-width: 480px; margin-left: auto; margin-right: auto; box-shadow: 0 -4px 20px rgba(0,0,0,0.08); }
+        .btn-confirm:disabled { background: #D4A58A; cursor: not-allowed; }
+        .content { padding-bottom: 100px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="doctor-name" id="doctorName">Dr. Sarah Otieno</div>
+        <div class="doctor-specialty" id="doctorSpecialty">General Practice</div>
+    </div>
+    
+    <div class="content">
+        <div class="section-title">Select date</div>
+        <div class="date-field">
+            <input type="text" class="date-input" id="dateInput" placeholder="Tap to select date" readonly>
+        </div>
+        
+        <div class="section-title">Select a time slot</div>
+        <div class="chips" id="slotChips"></div>
+        
+        <button class="btn-confirm" id="btnConfirm" disabled>Confirm Booking</button>
+    </div>
+    
+    <script>
+        const doctor = {
+            name: "Dr. Sarah Otieno",
+            specialty: "General Practice",
+            availableSlots: ["09:00", "09:30", "10:00", "10:30", "11:00", "14:00", "14:30", "15:00", "15:30"]
+        };
+        
+        let selectedDate = new Date().toISOString().split('T')[0];
+        let selectedSlot = null;
+        
+        document.getElementById('doctorName').textContent = doctor.name;
+        document.getElementById('doctorSpecialty').textContent = doctor.specialty;
+        
+        const dateInput = document.getElementById('dateInput');
+        const fmt = new Intl.DateTimeFormat('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+        dateInput.value = fmt.format(new Date(selectedDate));
+        
+        dateInput.addEventListener('click', () => {
+            const newDate = prompt('Enter date (YYYY-MM-DD):', selectedDate);
+            if (newDate && /^\d{4}-\d{2}-\d{2}$/.test(newDate)) {
+                selectedDate = newDate;
+                dateInput.value = fmt.format(new Date(selectedDate));
+                renderSlots();
+            }
+        });
+        
+        function renderSlots() {
+            const container = document.getElementById('slotChips');
+            container.innerHTML = doctor.availableSlots.map(slot => 
+                `<button class="slot-chip ${slot === selectedSlot ? 'selected' : ''}" onclick="selectSlot('${slot}')">${slot}</button>`
+            ).join('');
+        }
+        
+        function selectSlot(slot) {
+            selectedSlot = slot;
+            renderSlots();
+            document.getElementById('btnConfirm').disabled = false;
+        }
+        
+        document.getElementById('btnConfirm').addEventListener('click', () => {
+            if (!selectedSlot) return;
+            alert(`Booking confirmed!\nDoctor: ${doctor.name}\nDate: ${selectedDate}\nTime: ${selectedSlot}\n\nQueue number assigned: 5\n\nRedirecting to Live Queue Status...`);
+        });
+        
+        renderSlots();
+    </script>
+</body>
+</html>

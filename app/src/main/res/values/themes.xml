@@ -1,0 +1,238 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.AfyaLaini" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/brand_primary</item>
+        <item name="colorPrimaryVariant">@color/brand_primary_variant</item>
+        <item name="colorOnPrimary">@color/text_on_primary</item>
+
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/brand_secondary</item>
+        <item name="colorSecondaryVariant">@color/brand_secondary_variant</item>
+        <item name="colorOnSecondary">@color/text_on_secondary</item>
+
+        <!-- Tertiary brand color (accent) -->
+        <item name="colorTertiary">@color/brand_accent</item>
+        <item name="colorOnTertiary">@color/text_on_primary</item>
+
+        <!-- Error color -->
+        <item name="colorError">@color/color_error</item>
+        <item name="colorOnError">@color/text_on_primary</item>
+
+        <!-- Surface colors -->
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorSurfaceVariant">@color/surface_variant</item>
+        <item name="colorOnSurface">@color/text_on_surface</item>
+        <item name="colorOnSurfaceVariant">@color/text_secondary</item>
+
+        <!-- Background -->
+        <item name="android:colorBackground">@color/background</item>
+        <item name="colorOnBackground">@color/text_on_surface</item>
+
+        <!-- Status bar -->
+        <item name="android:statusBarColor">@color/brand_primary_variant</item>
+        <item name="android:windowLightStatusBar">false</item>
+
+        <!-- Navigation bar -->
+        <item name="android:navigationBarColor">@color/navigation_bar</item>
+        <item name="android:windowLightNavigationBar">true</item>
+
+        <!-- Window background -->
+        <item name="android:windowBackground">@color/background</item>
+
+        <!-- Typography -->
+        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.AfyaLaini.HeadlineLarge</item>
+        <item name="textAppearanceHeadlineMedium">@style/TextAppearance.AfyaLaini.HeadlineMedium</item>
+        <item name="textAppearanceHeadlineSmall">@style/TextAppearance.AfyaLaini.HeadlineSmall</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.AfyaLaini.TitleLarge</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.AfyaLaini.TitleMedium</item>
+        <item name="textAppearanceTitleSmall">@style/TextAppearance.AfyaLaini.TitleSmall</item>
+        <item name="textAppearanceBodyLarge">@style/TextAppearance.AfyaLaini.BodyLarge</item>
+        <item name="textAppearanceBodyMedium">@style/TextAppearance.AfyaLaini.BodyMedium</item>
+        <item name="textAppearanceBodySmall">@style/TextAppearance.AfyaLaini.BodySmall</item>
+        <item name="textAppearanceLabelLarge">@style/TextAppearance.AfyaLaini.LabelLarge</item>
+        <item name="textAppearanceLabelMedium">@style/TextAppearance.AfyaLaini.LabelMedium</item>
+        <item name="textAppearanceLabelSmall">@style/TextAppearance.AfyaLaini.LabelSmall</item>
+
+        <!-- Shape appearance -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.AfyaLaini.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.AfyaLaini.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.AfyaLaini.LargeComponent</item>
+
+        <!-- Component styles -->
+        <item name="materialButtonStyle">@style/Widget.AfyaLaini.Button</item>
+        <item name="materialButtonOutlinedStyle">@style/Widget.AfyaLaini.Button.Outlined</item>
+        <item name="textInputStyle">@style/Widget.AfyaLaini.TextInputLayout</item>
+        <item name="chipStyle">@style/Widget.AfyaLaini.Chip</item>
+    </style>
+
+    <style name="Theme.AfyaLaini" parent="Base.Theme.AfyaLaini" />
+
+    <!-- Splash Theme -->
+    <style name="Theme.AfyaLaini.Splash" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:statusBarColor">@color/brand_primary_variant</item>
+        <item name="android:navigationBarColor">@color/brand_primary_variant</item>
+    </style>
+
+    <!-- Text Appearance Styles -->
+    <style name="TextAppearance.AfyaLaini.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.AfyaLaini.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.AfyaLaini.HeadlineSmall" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.AfyaLaini.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.AfyaLaini.TitleMedium" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.AfyaLaini.TitleSmall" parent="TextAppearance.Material3.TitleSmall">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.AfyaLaini.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="fontFamily">sans-serif</item>
+    </style>
+
+    <style name="TextAppearance.AfyaLaini.BodyMedium" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="fontFamily">sans-serif</item>
+    </style>
+
+    <style name="TextAppearance.AfyaLaini.BodySmall" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textColor">@color/text_tertiary</item>
+        <item name="fontFamily">sans-serif</item>
+    </style>
+
+    <style name="TextAppearance.AfyaLaini.LabelLarge" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.AfyaLaini.LabelMedium" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="TextAppearance.AfyaLaini.LabelSmall" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:textColor">@color/text_tertiary</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!-- Shape Appearance -->
+    <style name="ShapeAppearance.AfyaLaini.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
+    <style name="ShapeAppearance.AfyaLaini.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <style name="ShapeAppearance.AfyaLaini.LargeComponent" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">24dp</item>
+    </style>
+
+    <!-- Button Styles -->
+    <style name="Widget.AfyaLaini.Button" parent="Widget.Material3.Button">
+        <item name="cornerRadius">12dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingVertical">14dp</item>
+        <item name="android:paddingHorizontal">24dp</item>
+        <item name="rippleColor">@color/brand_primary_variant</item>
+    </style>
+
+    <style name="Widget.AfyaLaini.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="cornerRadius">12dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingVertical">14dp</item>
+        <item name="android:paddingHorizontal">24dp</item>
+        <item name="strokeColor">@color/brand_primary</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="rippleColor">@color/brand_primary_light</item>
+    </style>
+
+    <style name="Widget.AfyaLaini.Button.Tonal" parent="Widget.Material3.Button.TonalButton">
+        <item name="cornerRadius">12dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingVertical">14dp</item>
+        <item name="android:paddingHorizontal">24dp</item>
+    </style>
+
+    <!-- TextInputLayout Style -->
+    <style name="Widget.AfyaLaini.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/border</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+        <item name="boxBackgroundColor">@color/surface</item>
+        <item name="hintTextColor">@color/text_tertiary</item>
+        <item name="placeholderTextColor">@color/text_tertiary</item>
+        <item name="android:textColorHint">@color/text_tertiary</item>
+        <item name="startIconTint">@color/text_tertiary</item>
+        <item name="endIconTint">@color/text_tertiary</item>
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item>
+        <item name="boxCornerRadiusBottomEnd">12dp</item>
+    </style>
+
+    <!-- Chip Style -->
+    <style name="Widget.AfyaLaini.Chip" parent="Widget.Material3.Chip.Filter">
+        <item name="chipCornerRadius">20dp</item>
+        <item name="chipMinHeight">44dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="chipBackgroundColor">@color/chip_background_color</item>
+        <item name="android:textColor">@color/chip_text_color</item>
+        <item name="chipIconTint">@color/chip_icon_tint</item>
+        <item name="chipStrokeColor">@color/brand_primary</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.AfyaLaini.LabelMedium</item>
+    </style>
+
+    <!-- Bottom Navigation View Style -->
+    <style name="Widget.AfyaLaini.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="itemRippleColor">@color/brand_primary_light</item>
+        <item name="itemIconTint">@color/bottom_nav_item_color</item>
+        <item name="itemTextColor">@color/bottom_nav_item_color</item>
+    </style>
+
+    <!-- TabLayout Style -->
+    <style name="Widget.AfyaLaini.TabLayout" parent="Widget.Material3.TabLayout">
+        <item name="tabIndicatorColor">@color/brand_primary</item>
+        <item name="tabIndicatorHeight">3dp</item>
+        <item name="tabSelectedTextColor">@color/brand_primary</item>
+        <item name="tabTextColor">@color/text_tertiary</item>
+        <item name="tabTextAppearance">@style/TextAppearance.AfyaLaini.LabelMedium</item>
+    </style>
+
+    <!-- CardView Style -->
+    <style name="Widget.AfyaLaini.CardView" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="cardBackgroundColor">@color/surface</item>
+        <item name="strokeColor">@color/border_light</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+</resources>

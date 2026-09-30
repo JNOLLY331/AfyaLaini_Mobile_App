@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AfyaQueue - Login</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        :root {
+            --brand-green: #1E7A46;
+            --brand-rust: #C1541A;
+            --brand-navy: #16264A;
+            --brand-bg: #FAFAF8;
+            --brand-surface: #FFFFFF;
+            --brand-text: #1B2333;
+            --brand-text-muted: #55607A;
+        }
+        body { background: var(--brand-bg); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+        .card { background: var(--brand-surface); border-radius: 16px; padding: 32px; width: 100%; max-width: 400px; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+        .logo { width: 60px; height: 60px; border-radius: 16px; background: linear-gradient(135deg, var(--brand-green), #2BA85E); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+        .logo svg { width: 36px; height: 36px; }
+        h1 { color: var(--brand-navy); font-size: 22px; font-weight: 700; text-align: center; margin-bottom: 6px; }
+        .subtitle { color: var(--brand-text-muted); text-align: center; margin-bottom: 28px; }
+        .form-group { margin-bottom: 16px; }
+        label { display: block; font-size: 13px; font-weight: 500; color: var(--brand-text); margin-bottom: 6px; }
+        input { width: 100%; padding: 14px 16px; border: 1px solid #E0E4E8; border-radius: 10px; font-size: 16px; background: var(--brand-surface); transition: border-color 0.2s, box-shadow 0.2s; }
+        input:focus { outline: none; border-color: var(--brand-green); box-shadow: 0 0 0 3px rgba(30,122,70,0.1); }
+        .btn { width: 100%; padding: 14px; background: var(--brand-green); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; margin-top: 8px; cursor: pointer; transition: background 0.2s; }
+        .btn:hover { background: #18683C; }
+        .link { text-align: center; margin-top: 20px; color: var(--brand-text-muted); font-size: 14px; }
+        .link a { color: var(--brand-green); text-decoration: none; font-weight: 500; }
+        .link a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                <path d="M12 2v20M2 12h20"/>
+                <circle cx="12" cy="12" r="3"/>
+            </svg>
+        </div>
+        <h1>Welcome back</h1>
+        <p class="subtitle">Sign in to continue</p>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="you@example.com" required autocomplete="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+            </div>
+            <button type="submit" class="btn">Log In</button>
+        </form>
+        
+        <p class="link">Don't have an account? <a href="register.html">Register</a></p>
+    </div>
+    
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            if (!email || !password) return alert('Enter email and password');
+            alert(`Logging in as ${email}... (redirects to Home or Staff Home based on role)`);
+        });
+    </script>
+</body>
+</html>

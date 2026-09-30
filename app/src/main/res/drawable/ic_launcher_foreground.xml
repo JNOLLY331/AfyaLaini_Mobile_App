@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Translucent Circular Backdrop Ring -->
+    <path
+        android:fillColor="#20FFFFFF"
+        android:pathData="M54,22C71.67,22 86,36.33 86,54C86,71.67 71.67,86 54,86C36.33,86 22,71.67 22,54C22,36.33 36.33,22 54,22Z" />
+
+    <!-- Pure White Modern Medical Cross - Horizontal Bar -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M35,46 H73 C76.3,46 79,48.7 79,52 V56 C79,59.3 76.3,62 73,62 H35 C31.7,62 29,59.3 29,56 V52 C29,48.7 31.7,46 35,46 Z" />
+
+    <!-- Pure White Modern Medical Cross - Vertical Bar -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M46,35 V73 C46,76.3 48.7,79 52,79 H56 C59.3,79 62,76.3 62,73 V35 C62,31.7 59.3,29 56,29 H52 C48.7,29 46,31.7 46,35 Z" />
+
+    <!-- Heartbeat Pulse / ECG Line Accenting the Center -->
+    <path
+        android:pathData="M32,54 H43 L47,44 L51,62 L55,48 L59,54 H76"
+        android:strokeColor="#004D3D"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>

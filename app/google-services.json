@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "904167907282",
+    "project_id": "afyalaini",
+    "storage_bucket": "afyalaini.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:904167907282:android:914b8f66aaf538c680720b",
+        "android_client_info": {
+          "package_name": "com.jnolly.AfyaLaini"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqQKRcGNnZTnnjz7kS7yjJH62iXXG6m74"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

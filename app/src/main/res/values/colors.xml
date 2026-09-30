@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Core Brand Colors -->
+    <color name="brand_primary">#006D5B</color>
+    <color name="brand_primary_variant">#004D3D</color>
+    <color name="brand_primary_light">#E8F5F0</color>
+    <color name="brand_secondary">#007B83</color>
+    <color name="brand_secondary_variant">#005B61</color>
+    <color name="brand_secondary_light">#E0F2F3</color>
+    <color name="brand_accent">#E86C00</color>
+    <color name="brand_accent_light">#FFF4E6</color>
+
+    <!-- Semantic Colors -->
+    <color name="color_success">#006D5B</color>
+    <color name="color_success_light">#E8F5F0</color>
+    <color name="color_warning">#E86C00</color>
+    <color name="color_warning_light">#FFF4E6</color>
+    <color name="color_error">#C62828</color>
+    <color name="color_error_light">#FDEDED</color>
+    <color name="color_info">#007B83</color>
+    <color name="color_info_light">#E0F2F3</color>
+
+    <!-- Neutral Colors -->
+    <color name="neutral_0">#FFFFFF</color>
+    <color name="neutral_50">#FAFAFA</color>
+    <color name="neutral_100">#F5F5F5</color>
+    <color name="neutral_200">#EEEEEE</color>
+    <color name="neutral_300">#E0E0E0</color>
+    <color name="neutral_400">#BDBDBD</color>
+    <color name="neutral_500">#9E9E9E</color>
+    <color name="neutral_600">#757575</color>
+    <color name="neutral_700">#616161</color>
+    <color name="neutral_800">#424242</color>
+    <color name="neutral_900">#212121</color>
+    <color name="neutral_950">#121212</color>
+
+    <!-- Surface & Background -->
+    <color name="surface">#FFFFFF</color>
+    <color name="surface_variant">#F5F5F5</color>
+    <color name="surface_container">#F0F0F0</color>
+    <color name="background">#FAFAFA</color>
+    <color name="background_secondary">#F5F5F5</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#1A1A2E</color>
+    <color name="text_secondary">#4A4A5A</color>
+    <color name="text_tertiary">#757575</color>
+    <color name="text_on_primary">#FFFFFF</color>
+    <color name="text_on_secondary">#FFFFFF</color>
+    <color name="text_on_surface">#1A1A2E</color>
+    <color name="text_disabled">#9E9E9E</color>
+    <color name="text_link">#006D5B</color>
+
+    <!-- Border & Divider -->
+    <color name="border">#E0E0E0</color>
+    <color name="border_light">#EEEEEE</color>
+    <color name="divider">#E0E0E0</color>
+
+    <!-- Status Bar / Navigation -->
+    <color name="status_bar">#004D3D</color>
+    <color name="navigation_bar">#FAFAFA</color>
+
+    <!-- Overlay / Scrim -->
+    <color name="scrim">#80000000</color>
+    <color name="overlay">#CC000000</color>
+
+    <!-- Legacy Support -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="brand_navy">#004D3D</color>
+    <color name="brand_green">#006D5B</color>
+    <color name="brand_rust">#E86C00</color>
+    <color name="brand_bg">#FAFAFA</color>
+    <color name="brand_surface">#FFFFFF</color>
+    <color name="brand_text">#1A1A2E</color>
+    <color name="brand_text_muted">#757575</color>
+</resources>

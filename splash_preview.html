@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AfyaQueue - Splash</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        :root {
+            --brand-green: #1E7A46;
+            --brand-rust: #C1541A;
+            --brand-navy: #16264A;
+            --brand-bg: #FAFAF8;
+            --brand-surface: #FFFFFF;
+            --brand-text: #1B2333;
+            --brand-text-muted: #55607A;
+        }
+        body { background: var(--brand-navy); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .logo { width: 80px; height: 80px; border-radius: 20px; background: linear-gradient(135deg, var(--brand-green), #2BA85E); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; }
+        .logo svg { width: 48px; height: 48px; }
+        h1 { color: white; font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+        .tagline { color: rgba(255,255,255,0.7); font-size: 15px; text-align: center; }
+        .loading { margin-top: 40px; width: 24px; height: 24px; border: 3px solid rgba(255,255,255,0.2); border-top-color: white; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+            <path d="M12 2v20M2 12h20"/>
+            <circle cx="12" cy="12" r="3"/>
+        </svg>
+    </div>
+    <h1>AfyaQueue</h1>
+    <p class="tagline">Skip the wait, know your turn</p>
+    <div class="loading" aria-label="Loading"></div>
+    <script>
+        setTimeout(() => { alert("Redirecting to Login..."); }, 1200);
+    </script>
+</body>
+</html>
