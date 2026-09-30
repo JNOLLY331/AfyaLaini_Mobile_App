@@ -161,6 +161,7 @@ class DoctorDetailActivity : AppCompatActivity() {
             ))
             nextNumber
         }.addOnSuccessListener { queueNumber ->
+            Toast.makeText(this, "Appointment booked! Your queue number is #$queueNumber", Toast.LENGTH_LONG).show()
             val intent = Intent(this, QueueStatusActivity::class.java)
             intent.putExtra("doctorId", doctor.id)
             intent.putExtra("date", selectedDate)

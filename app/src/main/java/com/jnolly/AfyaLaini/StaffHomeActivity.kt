@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.jnolly.AfyaLaini.adapter.QueueRowAdapter
@@ -27,11 +29,12 @@ import java.util.Locale
 
 class StaffHomeActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
     private lateinit var adapter: QueueRowAdapter
     private var doctors: List<Doctor> = emptyList()
     private var selectedDoctorId: String? = null
     private val today = todayString()
-    
+
     private var appointmentsListener: ListenerRegistration? = null
     private var statusListener: ListenerRegistration? = null
     private var liveDot: View? = null
@@ -94,7 +97,7 @@ class StaffHomeActivity : AppCompatActivity() {
 
     private fun loadQueue(doctorId: String) {
         selectedDoctorId = doctorId
-        
+
         appointmentsListener?.remove()
         statusListener?.remove()
 
@@ -107,8 +110,9 @@ class StaffHomeActivity : AppCompatActivity() {
                 val appointments = snapshot?.documents?.mapNotNull { it.toObject(Appointment::class.java) } ?: emptyList()
                 adapter.submitList(appointments)
                 findViewById<TextView>(R.id.tvWaitingCount).text = appointments.size.toString()
-                findViewById<Button>(R.id.btnCallNext).isEnabled = appointments.isNotEmpty()
-                findViewById<Button>(R.id.btnCallNext).alpha = if (appointments.isNotEmpty()) 1f else 0.6f
+                val btnCall = findViewById<Button>(R.id.btnCallNext)
+                btnCall.isEnabled = appointments.isNotEmpty()
+                btnCall.alpha = if (appointments.isNotEmpty()) 1f else 0.6f
             }
 
         statusListener = db.collection("queueStatus").document("${doctorId}_$today")
@@ -125,7 +129,11 @@ class StaffHomeActivity : AppCompatActivity() {
         db.runTransaction { transaction ->
             val snapshot = transaction.get(ref)
             val current = snapshot.getLong("nowServing")?.toInt() ?: 0
-            transaction.update(ref, "nowServing", current + 1)
+            val next = current + 1
+            transaction.update(ref, "nowServing", next)
+            next
+        }.addOnSuccessListener { next ->
+            Toast.makeText(this, "Calling Queue #$next to room!", Toast.LENGTH_SHORT).show()
         }.addOnFailureListener { e ->
             Toast.makeText(this, "Could not advance queue: ${e.message}", Toast.LENGTH_LONG).show()
         }
@@ -158,11 +166,31 @@ class StaffHomeActivity : AppCompatActivity() {
         statusListener?.remove()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            onBackPressed()
-            return true
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            R.id.action_notifications -> {
+                Toast.makeText(this, "Staff Dashboard Active", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.action_logout -> {
+                auth.signOut()
+                Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 }

@@ -13,14 +13,21 @@
         android:padding="24dp"
         android:gravity="center">
 
-        <!-- Logo -->
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+        <!-- Branded Logo Container with Launcher Icon -->
+        <FrameLayout
+            android:layout_width="88dp"
+            android:layout_height="88dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="24dp"
-            android:src="@drawable/ic_medical_logo"
-            android:contentDescription="@string/app_name" />
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_splash_logo_ring"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_launcher_foreground"
+                android:contentDescription="@string/app_name" />
+        </FrameLayout>
 
         <!-- App Name & Tagline -->
         <TextView
@@ -38,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="28dp"
             android:text="Create your account to get started"
             android:textColor="@color/text_secondary"
             android:textSize="15sp" />
@@ -151,6 +158,16 @@
                 android:autofillHints="phone"
                 android:textColor="@color/text_primary" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Interactive Loading Progress Spinner -->
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressBar"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginBottom="16dp"
+            android:indeterminate="true"
+            android:visibility="gone"
+            app:indicatorColor="@color/brand_primary" />
 
         <!-- Create Account Button -->
         <Button

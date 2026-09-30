@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">AfyaLaini</string>
-    <string name="tagline">Your health, your queue, your time</string>
-    <string name="powered_by">Powered by AfyaLaini</string>
+    <string name="tagline">Skip the wait, Know your turn</string>
+    <string name="powered_by">Powered by Jnolly Digital Solutions</string>
+    <string name="logout">Logout</string>
+    <string name="welcome_afyalaini">Welcome to AfyaLaini</string>
+    <string name="welcome_user">Hello, %1$s 👋</string>
+    <string name="role_patient">PATIENT</string>
+    <string name="role_staff">STAFF</string>
+    <string name="search_filter_hint">Try adjusting your search or filter options</string>
 </resources>

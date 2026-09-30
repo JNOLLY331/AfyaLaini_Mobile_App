@@ -2,12 +2,16 @@ package com.jnolly.AfyaLaini
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import com.jnolly.AfyaLaini.model.User
 
@@ -21,32 +25,79 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
         auth = FirebaseAuth.getInstance()
 
-        findViewById<Chip>(R.id.chipPatient).setOnClickListener { selectedRole = "patient" }
-        findViewById<Chip>(R.id.chipStaff).setOnClickListener { selectedRole = "staff" }
+        val chipGroup = findViewById<ChipGroup>(R.id.chipGroupRole)
+        val etName = findViewById<EditText>(R.id.etName)
+        val etEmail = findViewById<EditText>(R.id.etEmail)
+        val etPassword = findViewById<EditText>(R.id.etPassword)
+        val etPhone = findViewById<EditText>(R.id.etPhone)
+        val btnCreate = findViewById<Button>(R.id.btnCreateAccount)
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
 
-        findViewById<Button>(R.id.btnCreateAccount).setOnClickListener {
-            val name = findViewById<EditText>(R.id.etName).text.toString().trim()
-            val email = findViewById<EditText>(R.id.etEmail).text.toString().trim()
-            val password = findViewById<EditText>(R.id.etPassword).text.toString().trim()
-            val phone = findViewById<EditText>(R.id.etPhone).text.toString().trim()
+        chipGroup.setOnCheckedStateChangeListener { _, checkedIds ->
+            selectedRole = if (checkedIds.contains(R.id.chipStaff)) "staff" else "patient"
+        }
 
-            if (name.isEmpty() || email.isEmpty() || password.length < 6) {
-                Toast.makeText(this, "Fill all fields (password needs 6+ characters)", Toast.LENGTH_SHORT).show()
+        btnCreate.setOnClickListener {
+            val name = etName.text.toString().trim()
+            val email = etEmail.text.toString().trim()
+            val password = etPassword.text.toString().trim()
+            val phone = etPhone.text.toString().trim()
+
+            if (name.isEmpty()) {
+                etName.error = "Please enter your full name"
+                etName.requestFocus()
                 return@setOnClickListener
             }
 
+            if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                etEmail.error = "Please enter a valid email address"
+                etEmail.requestFocus()
+                return@setOnClickListener
+            }
+
+            if (password.length < 6) {
+                etPassword.error = "Password must be at least 6 characters"
+                etPassword.requestFocus()
+                return@setOnClickListener
+            }
+
+            progressBar.visibility = View.VISIBLE
+            btnCreate.isEnabled = false
+
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnSuccessListener { result ->
-                    val uid = result.user?.uid ?: return@addOnSuccessListener
+                    val firebaseUser = result.user
+                    val uid = firebaseUser?.uid
+                    if (uid == null) {
+                        progressBar.visibility = View.GONE
+                        btnCreate.isEnabled = true
+                        Toast.makeText(this, "Registration failed. User ID missing.", Toast.LENGTH_SHORT).show()
+                        return@addOnSuccessListener
+                    }
+
+                    // Update Auth profile display name
+                    val profileUpdates = UserProfileChangeRequest.Builder().setDisplayName(name).build()
+                    firebaseUser.updateProfile(profileUpdates)
+
                     val user = User(uid = uid, name = name, role = selectedRole, email = email, phone = phone)
                     db.collection("users").document(uid).set(user)
                         .addOnSuccessListener {
+                            progressBar.visibility = View.GONE
+                            btnCreate.isEnabled = true
+                            Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show()
                             val destination = if (selectedRole == "staff") StaffHomeActivity::class.java else HomeActivity::class.java
                             startActivity(Intent(this, destination))
                             finish()
                         }
+                        .addOnFailureListener { e ->
+                            progressBar.visibility = View.GONE
+                            btnCreate.isEnabled = true
+                            Toast.makeText(this, "Failed to save profile: ${e.message}", Toast.LENGTH_LONG).show()
+                        }
                 }
                 .addOnFailureListener { e ->
+                    progressBar.visibility = View.GONE
+                    btnCreate.isEnabled = true
                     Toast.makeText(this, "Registration failed: ${e.message}", Toast.LENGTH_LONG).show()
                 }
         }

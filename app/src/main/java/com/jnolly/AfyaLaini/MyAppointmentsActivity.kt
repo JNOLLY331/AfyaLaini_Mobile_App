@@ -3,12 +3,15 @@ package com.jnolly.AfyaLaini
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -20,6 +23,7 @@ import com.jnolly.AfyaLaini.model.Appointment
 
 class MyAppointmentsActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
     private lateinit var upcomingAdapter: AppointmentAdapter
     private lateinit var pastAdapter: AppointmentAdapter
     private lateinit var viewPager: ViewPager2
@@ -70,7 +74,7 @@ class MyAppointmentsActivity : AppCompatActivity() {
             onCancel = { _ -> }
         )
 
-        viewPager.adapter = object : androidx.viewpager2.adapter.FragmentStateAdapter(this) {
+        viewPager.adapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int = 2
             override fun createFragment(position: Int) = when (position) {
                 0 -> AppointmentListFragment(upcomingAdapter, "upcoming")
@@ -79,8 +83,19 @@ class MyAppointmentsActivity : AppCompatActivity() {
         }
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = if (position == 0) "Upcoming" else "Past"
+            tab.text = if (position == 0) "Upcoming" else "Past / Cancelled"
         }.attach()
+
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                if (position == 0) {
+                    loadAppointments("upcoming", upcomingAdapter)
+                } else {
+                    loadAppointments("completed", pastAdapter)
+                }
+            }
+        })
 
         loadAppointments("upcoming", upcomingAdapter)
         loadAppointments("completed", pastAdapter)
@@ -88,57 +103,75 @@ class MyAppointmentsActivity : AppCompatActivity() {
 
     private fun setupEmptyStateButton() {
         findViewById<Button>(R.id.btnBookFirst).setOnClickListener {
-            tabLayout.getTabAt(0)?.select()
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }
     }
 
     private fun loadAppointments(status: String, adapter: AppointmentAdapter) {
-        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
-        db.collection("appointments")
+        val uid = auth.currentUser?.uid ?: return
+        
+        var query = db.collection("appointments")
             .whereEqualTo("patientId", uid)
-            .whereEqualTo("status", status)
-            .orderBy("createdAt", Query.Direction.DESCENDING)
+
+        if (status == "upcoming") {
+            query = query.whereEqualTo("status", "upcoming")
+        } else {
+            // Include both completed and cancelled in past tab
+            query = query.whereIn("status", listOf("completed", "cancelled"))
+        }
+
+        query.orderBy("createdAt", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { snapshot ->
                 val appointments = snapshot.documents.mapNotNull { it.toObject(Appointment::class.java) }
                 adapter.submitList(appointments)
-                updateEmptyState(status, appointments.isEmpty())
+                updateEmptyState(appointments.isEmpty())
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Could not load appointments: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
 
-    private fun updateEmptyState(status: String, isEmpty: Boolean) {
-        val emptyContainer = findViewById<android.widget.FrameLayout>(R.id.emptyStateContainer)
+    private fun updateEmptyState(isEmpty: Boolean) {
+        val emptyContainer = findViewById<FrameLayout>(R.id.emptyStateContainer)
         val viewPager = findViewById<ViewPager2>(R.id.viewPager)
-        
-        if (isEmpty && viewPager.currentItem == (if (status == "upcoming") 0 else 1)) {
-            emptyContainer.visibility = android.view.View.VISIBLE
-            viewPager.visibility = android.view.View.GONE
-            
+
+        val isUpcomingTab = viewPager.currentItem == 0
+        if (isEmpty) {
+            emptyContainer.visibility = View.VISIBLE
+            viewPager.visibility = View.GONE
+
             val tvTitle = findViewById<TextView>(R.id.tvEmptyTitle)
             val tvSubtitle = findViewById<TextView>(R.id.tvEmptySubtitle)
             val ivEmpty = findViewById<ImageView>(R.id.ivEmptyState)
-            
-            if (status == "upcoming") {
+
+            if (isUpcomingTab) {
                 tvTitle.text = "No upcoming appointments"
                 tvSubtitle.text = "Book your first appointment to get started"
                 ivEmpty.setImageResource(R.drawable.ic_no_appointments)
             } else {
                 tvTitle.text = "No past appointments"
-                tvSubtitle.text = "Your completed appointments will appear here"
+                tvSubtitle.text = "Your completed or cancelled appointments will appear here"
                 ivEmpty.setImageResource(R.drawable.ic_no_appointments)
             }
         } else {
-            emptyContainer.visibility = android.view.View.GONE
-            viewPager.visibility = android.view.View.VISIBLE
+            emptyContainer.visibility = View.GONE
+            viewPager.visibility = View.VISIBLE
         }
     }
 
     private fun cancelAppointment(appointment: Appointment) {
         db.collection("appointments").document(appointment.id)
             .update("status", "cancelled")
-            .addOnSuccessListener { loadAppointments("upcoming", upcomingAdapter) }
+            .addOnSuccessListener {
+                Toast.makeText(this, "Appointment cancelled successfully", Toast.LENGTH_SHORT).show()
+                loadAppointments("upcoming", upcomingAdapter)
+                loadAppointments("completed", pastAdapter)
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Could not cancel appointment: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
